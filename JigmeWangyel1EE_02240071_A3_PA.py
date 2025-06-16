@@ -16,35 +16,16 @@ class InvalidTransferError(BankError):
 
 
 class Account:
-    """
-    Represents a bank account.
-    
-    Attributes:
-        owner (str): Account owner's name.
-        balance (float): Current balance of the account.
-    """
     def __init__(self, owner, balance=0):
         self.owner = owner
         self.balance = balance
 
     def deposit(self, amount):
-        """
-        Deposits money into the account.
-        
-        Raises:
-            InvalidInputError: If amount is not positive.
-        """
         if amount <= 0:
             raise InvalidInputError("Deposit amount must be positive.")
         self.balance += amount
 
     def withdraw(self, amount):
-        """
-        Withdraws money from the account.
-        
-        Raises:
-            InvalidInputError: If amount is not positive or exceeds balance.
-        """
         if amount <= 0:
             raise InvalidInputError("Withdrawal amount must be positive.")
         if amount > self.balance:
@@ -55,33 +36,21 @@ class Account:
         return f"Account({self.owner}, Balance: {self.balance:.2f})"
 
 class MobileTopUpService:
-    """
-    Handles mobile phone top-ups.
-    """
     def __init__(self):
         self.top_ups = {}  # phone -> total amount
 
     def top_up(self, phone_number, amount):
-        """
-        Tops up a mobile phone number.
-        
-        Raises:
-            InvalidInputError: If amount is not positive.
-        """
+
         if amount <= 0:
             raise InvalidInputError("Top-up amount must be positive.")
         self.top_ups[phone_number] = self.top_ups.get(phone_number, 0) + amount
 
     def get_total(self, phone_number):
-        """
-        Gets the total top-up for a phone number.
-        """
+
         return self.top_ups.get(phone_number, 0)
 
 class Bank:
-    """
-    A simple bank system to manage accounts and transfers.
-    """
+
     def __init__(self):
         self.accounts = {}
         self.top_up_service = MobileTopUpService()
@@ -117,12 +86,6 @@ class Bank:
 # -------------------- CLI Menu System --------------------
 
 def process_user_input(choice, bank):
-    """
-    Processes user menu input.
-    
-    Raises:
-        InvalidInputError: If menu choice is invalid.
-    """
     if choice == "1":
         name = input("Name: ")
         deposit = float(input("Initial deposit: "))
@@ -166,9 +129,6 @@ def run_cli():
 
 
 class BankingGUI:
-    """
-    GUI for the banking application using tkinter.
-    """
     def __init__(self, root):
         self.bank = Bank()
         self.root = root
